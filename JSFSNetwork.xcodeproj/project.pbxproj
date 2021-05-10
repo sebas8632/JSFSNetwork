@@ -139,6 +139,7 @@
 				B197C7CD26470008008F0F24 /* Sources */,
 				B197C7CE26470008008F0F24 /* Frameworks */,
 				B197C7CF26470008008F0F24 /* Resources */,
+				B1BBE40C2648E26600F43F5A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -190,6 +191,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B1BBE40C2648E26600F43F5A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B197C7CD26470008008F0F24 /* Sources */ = {
@@ -353,7 +374,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = juanflorezpersonal.JSFSNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -382,7 +403,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = juanflorezpersonal.JSFSNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

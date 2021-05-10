@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol URLSessionProtocol {
-    typealias DataTaskResult = (Data?, URLResponse?, Error?) -> ()
+    typealias DataTaskResult = (Data?, URLResponse?, Error?) -> Void
     func dataTask(request: URLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTask
 }
 
