@@ -1,0 +1,74 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name JSFSNetwork
+import Foundation
+@_exported import JSFSNetwork
+import Swift
+public protocol URLSessionProtocol {
+  typealias DataTaskResult = (Foundation.Data?, Foundation.URLResponse?, Swift.Error?) -> Swift.Void
+  func dataTask(request: Foundation.URLRequest, completionHandler: @escaping Self.DataTaskResult) -> Foundation.URLSessionDataTask
+}
+extension URLSession : JSFSNetwork.URLSessionProtocol {
+  public func dataTask(request: Foundation.URLRequest, completionHandler: @escaping Foundation.URLSession.DataTaskResult) -> Foundation.URLSessionDataTask
+}
+public enum NetworkError : Swift.String, Swift.Error {
+  case internalError
+  case serverError
+  case parsingError
+  case unknown
+  case noJSONData
+  case noResponse
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum ParametersEncoding {
+  case url
+  case json
+  public static func == (a: JSFSNetwork.ParametersEncoding, b: JSFSNetwork.ParametersEncoding) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public protocol ProviderProtocol {
+  func request<T>(type: T.Type, service: JSFSNetwork.ServiceProtocol, completion: @escaping (Swift.Result<T, JSFSNetwork.NetworkError>) -> Swift.Void) where T : Swift.Decodable, T : Swift.Encodable
+}
+public enum HTTPMethod : Swift.String {
+  case options
+  case get
+  case head
+  case post
+  case put
+  case patch
+  case delete
+  case trace
+  case connect
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public class URLSessionProvider : JSFSNetwork.ProviderProtocol {
+  public init(session: JSFSNetwork.URLSessionProtocol = URLSession.shared)
+  public func request<T>(type: T.Type, service: JSFSNetwork.ServiceProtocol, completion: @escaping (JSFSNetwork.NetworkResponse<T>) -> Swift.Void) where T : Swift.Decodable
+  @objc deinit
+}
+public typealias NetworkResponse<T> = Swift.Result<T, JSFSNetwork.NetworkError>
+public typealias Parameters = [Swift.String : Any]
+public enum Task {
+  case requestPlain
+  case requestParameters(JSFSNetwork.Parameters)
+}
+public typealias Headers = [Swift.String : Swift.String]
+public protocol ServiceProtocol {
+  var baseURL: Foundation.URL { get }
+  var path: Swift.String { get }
+  var method: JSFSNetwork.HTTPMethod { get }
+  var task: JSFSNetwork.Task { get }
+  var headers: JSFSNetwork.Headers { get }
+  var parametersEncoding: JSFSNetwork.ParametersEncoding { get }
+}
